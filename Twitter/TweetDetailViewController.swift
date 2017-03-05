@@ -38,22 +38,22 @@ class TweetDetailViewController: UIViewController, UITableViewDataSource, UITabl
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 140
         
-        if let profileUrlString = tweet?.user?.profileUrl{
+        if let profileUrlString = self.tweet?.user?.profileUrl{
             //set image nicer with rounder corner (From Yelp app)
             profileImageView.layer.cornerRadius = 4.0
             profileImageView.clipsToBounds = true
             profileImageView.setImageWith(profileUrlString)
         }
         
-        if let userName = tweet?.user?.name{
+        if let userName = self.tweet?.user?.name{
             userNameLabel.text = userName
         }
         
-        if let screenName = tweet?.user?.screenName{
+        if let screenName = self.tweet?.user?.screenName{
             nickNameLabel.text = "@" + screenName
         }
         
-        if let tweetText = tweet?.text{
+        if let tweetText = self.tweet?.text{
             print(tweetText)
             tweetTextLabel.text = tweetText as String
             tweetTextLabel.sizeToFit()
@@ -77,13 +77,13 @@ class TweetDetailViewController: UIViewController, UITableViewDataSource, UITabl
 //        thumbImageView.isUserInteractionEnabled = true
 //        thumbImageView.addGestureRecognizer(tapOnThumbImageRecognizer)
         
-        let profileImageRecognizer = UITapGestureRecognizer(target: self, action: #selector(profileImageOntap(sender:)))
+        let profileImageRecognizer = UITapGestureRecognizer(target: self, action: #selector(profileImageOntap(tapGestureRecognizer:)))
         profileImageView.isUserInteractionEnabled = true
         profileImageView.addGestureRecognizer(profileImageRecognizer)
     }
     
-    func profileImageOntap(sender: UITapGestureRecognizer){
-        performSegue(withIdentifier: "DetailViewToProfileSegue", sender: sender)
+    func profileImageOntap(tapGestureRecognizer: UITapGestureRecognizer){
+        performSegue(withIdentifier: "DetailViewToProfileSegue", sender: tapGestureRecognizer)
     }
 
     override func didReceiveMemoryWarning() {

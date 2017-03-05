@@ -114,7 +114,9 @@ class TwitterClient: BDBOAuth1SessionManager {
         }
         
         let param: NSDictionary!
-        param = ["screen_name": screenName]
+        param = ["screen_name":screenName]
+        
+        //param = ["screen_name": screenName]
         
         get("1.1/statuses/user_timeline.json", parameters: param, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
             let dictionary = response as! [NSDictionary]

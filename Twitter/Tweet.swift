@@ -9,46 +9,76 @@
 import UIKit
 
 class Tweet: NSObject {
-    var text: NSString?
-    var timestamp: NSString?
-    var retweetCount: Int =  0
-    var favoritesCount: Int = 0
-    var user: User?
-    var retweetedStatus: NSDictionary?
+    var dictionary: NSDictionary!
     
-    init(dictionary: NSDictionary){
-        user = User(dictionary: dictionary["user"] as! NSDictionary)
-        
-        text = dictionary["text"] as? NSString
-        retweetCount = (dictionary["retweet_count"] as? Int) ?? 0
-        favoritesCount = (dictionary["favourites_count"] as? Int) ?? 0
-        
+    var text: String?{
+        return dictionary["text"] as? String
+    }
+    
+    var createdDate: String?{
+        let createdDate = dictionary["created_at"] as? String
+        let formatter = DateFormatter()
+        formatter.dateFormat = "EEE MMM d HH:mm:ss Z y"
+        let date = formatter.date(from: createdDate!)
+        formatter.dateFormat = "MM/dd/yy, HH:mm a"
+        formatter.amSymbol = "AM"
+        formatter.pmSymbol = "PM"
+        return formatter.string(from:date!)
+    }
+    
+    var timestamp: String?{
         let timestampString = dictionary["created_at"] as? String
         let formatter = DateFormatter()
         formatter.dateFormat =  "EEE MMM d HH:mm:ss Z y"
         let date_create = formatter.date(from: timestampString!) as NSDate?
         
         let elapsed = Int(Date().timeIntervalSince(date_create! as Date))
-    
+        
         if elapsed < 60 * 60 {
             let minutes = (elapsed/60) % 60
-            timestamp = "\(minutes)m" as NSString?
+            return "\(minutes)m"
         }
         else if elapsed < 60 * 60 * 24 {
             let hours = (elapsed/(60 * 60)) % 24
-            timestamp = "\(hours)h" as NSString?
+            return "\(hours)h"
         }
         else if elapsed < 60 * 60 * 24 * 15 {
             let days = (elapsed/(60 * 60 * 24)) % 15
-            timestamp = "\(days)d" as NSString?
+            return "\(days)d"
         }
         else {
             formatter.dateFormat = "MM-dd-yyyy"
-            timestamp =  formatter.string(from: date_create! as Date) as NSString?
+            return formatter.string(from: date_create! as Date)
         }
-        
-        //retweeted Status
-        retweetedStatus = dictionary["retweeted_status"] as? NSDictionary
+
+    }
+    
+    var retweetCount: Int{
+        return dictionary["retweet_count"] as! Int
+    }
+    
+    var favoritesCount: Int{
+        return dictionary["favorite_count"] as! Int
+    }
+    
+    var user: User?{
+        return User(dictionary: dictionary["user"] as! NSDictionary)
+    }
+    
+    var retweetedStatus: NSDictionary?{
+        return dictionary["retweeted_status"] as? NSDictionary
+    }
+    
+    var isRetweeted: Bool{
+        return dictionary["retweeted"] as! Bool
+    }
+    
+    var isFavorited: Bool{
+        return dictionary["favorited"] as! Bool
+    }
+    
+    init(dictionary: NSDictionary) {
+        self.dictionary = dictionary
     }
     
     class func tweetsWithArray(dictionaries: [NSDictionary]) -> [Tweet]{

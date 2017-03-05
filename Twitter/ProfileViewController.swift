@@ -38,23 +38,7 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
             print("Error: \(error.localizedDescription)")
         })
         
-        if let profileUrlString = user?.profileUrl{
-            profileImage.setImageWith(profileUrlString)
-        }
-        
-        if let userName = user?.name{
-            userNameLabel.text = userName
-        }
-        
-        if let screenName = user?.screenName{
-            nickNameLabel.text = screenName
-        }
-        
-        if let tagline = user?.tagline{
-            userDescription.text = tagline
-            userDescription.sizeToFit()
-        }
-
+        updateUI()
         // Do any additional setup after loading the view.
     }
 
@@ -75,11 +59,32 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
         let cell = Bundle.main.loadNibNamed("TweetViewCell", owner: self, options: nil)?.first as! TweetViewCell
+        
         let tweet = self.tweets[indexPath.row]
         
         cell.tweet = tweet
         return cell
         
+    }
+    
+    func updateUI(){
+        if let profileUrlString = user?.profileUrl{
+            profileImage.setImageWith(profileUrlString)
+            profileImage.layer.cornerRadius = 4.0
+        }
+        
+        if let userName = user?.name{
+            userNameLabel.text = userName
+        }
+        
+        if let screenName = user?.screenName{
+            nickNameLabel.text = "@" + screenName
+        }
+        
+        if let tagline = user?.tagline{
+            userDescription.text = tagline
+            userDescription.sizeToFit()
+        }
     }
     
 
