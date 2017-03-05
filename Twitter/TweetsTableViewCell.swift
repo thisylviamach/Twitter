@@ -9,13 +9,34 @@
 import UIKit
 import AFNetworking
 
+protocol TweetsTableViewCellDelegate: class {
+    func profileImageOnTap(cell: TweetsTableViewCell, user: User )
+}
+
 class TweetsTableViewCell: UITableViewCell {
+    
+    weak var delegate: TweetsTableViewCellDelegate?
+    var user: User?
     
     @IBOutlet weak var tweetTextLabel: UILabel!
     @IBOutlet weak var dateCreateLabel: UILabel!
     @IBOutlet weak var nickNameLabel: UILabel!
     @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var profileImageView: UIImageView!
+    @IBOutlet weak var profileImageView: UIImageView!{
+        didSet{
+            self.profileImageView.isUserInteractionEnabled = true
+            let profileImageTap = UITapGestureRecognizer(target: self, action: #selector(userProfileOnTap(_:)))
+            self.profileImageView.addGestureRecognizer(profileImageTap)
+        }
+    }
+    
+    func userProfileOnTap(_ gesture: UITapGestureRecognizer){
+        if let delegate = delegate{
+            var screenName = nickNameLabel.text!
+            screenName.remove(at: screenName.startIndex)
+            delegate.profileImageOnTap(cell: self, user: user!)
+        }
+    }
     
     var tweet: Tweet!{
         didSet{

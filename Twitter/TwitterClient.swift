@@ -105,4 +105,25 @@ class TwitterClient: BDBOAuth1SessionManager {
             failure(error)
         })
     }
+    
+    //Returns a collection of the most recent Tweets posted by the user indicated by the screen_name.
+    func userTimeline(screenName: String?, success: @escaping ([Tweet]) -> (), falilure: @escaping (Error) -> () ){
+        guard let screenName = screenName else {
+            print("You pass in an empty screen name")
+            return
+        }
+        
+        let param: NSDictionary!
+        param = ["screen_name": screenName]
+        
+        get("1.1/statuses/user_timeline.json", parameters: param, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
+            let dictionary = response as! [NSDictionary]
+            let tweets = Tweet.tweetsWithArray(dictionaries: dictionary)
+            success(tweets)
+        }) { (task: URLSessionDataTask?, error: Error) in
+            falilure(error)
+        }
+        
+    }
+    
 }

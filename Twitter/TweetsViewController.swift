@@ -8,7 +8,7 @@
 
 import UIKit
 
- class TweetsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+ class TweetsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate {
 
     
     @IBOutlet var tableView: UITableView!
@@ -68,14 +68,33 @@ import UIKit
         return cell
     }
     
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        let cell = sender as! UITableViewCell
+        let indexPath = tableView.indexPath(for: cell)
+        let tweet = tweets[(indexPath?.row)!]
+        
+        let tweetDetailViewController = segue.destination as! TweetDetailViewController
+        tweetDetailViewController.tweet = tweet
     }
-    */
-
 }
+ 
+ 
+// extension TweetsViewController: TweetsTableViewCellDelegate{
+//    func profileImageViewTapped(cell: TweetsTableViewCell, user: User) {
+//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//        if let profileVC = storyboard.instantiateViewController(withIdentifier: "ProfileViewController") as? ProfileTableViewController{
+//            //set the profile user before your push
+//            //print(user.name)
+//            profileVC.user = user
+//            self.navigationController?.pushViewController(profileVC, animated: true)
+//        }
+//    }
+// }
+ 
+ extension TweetsViewController: TweetsTableViewCellDelegate{
+    //func profileImageOnTap(
+ }
