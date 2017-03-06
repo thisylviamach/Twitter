@@ -59,7 +59,7 @@ limitations under the License.
 
 # Project 5 - Twitter
 
-Time spent: 20 hours spent in total
+Time spent: 30 hours spent in total
 
 ## User Stories
 
@@ -70,7 +70,7 @@ The following **required** functionality is completed:
 - [X] Contains the user header view
 - [X] Contains a section with the users basic stats: # tweets, # following, # followers
 - [X] Home Timeline: Tapping on a user image should bring up that user's profile page
-- [ ] Compose Page: User can compose a new tweet by tapping on a compose button.
+- [X] Compose Page: User can compose a new tweet by tapping on a compose button.
 
 The following **optional** features are implemented:
 

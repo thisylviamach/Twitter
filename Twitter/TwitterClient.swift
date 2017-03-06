@@ -128,4 +128,30 @@ class TwitterClient: BDBOAuth1SessionManager {
         
     }
     
+    //to tweet post 1.1/statuses/update.json
+    func composeTweet(status: String, success: @escaping () -> ()){
+        guard let encodeStatus = status.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else{
+            print ("Input issue")
+            return
+        }
+        
+        post("1.1/statuses/update.json?status=\(encodeStatus)", parameters: nil, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
+            success()
+        }) { (task: URLSessionDataTask?, error: Error) in
+            print(error.localizedDescription)
+        }
+    }
+    
+    func postTweet(status: String, success: @escaping ()->()){
+        guard let encodedStatus = status.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else {
+            print("User Input status format issue found")
+            return
+        }
+        post("1.1/statuses/update.json?status=\(encodedStatus)", parameters: nil, progress: nil, success: { (task: URLSessionTask, response: Any?) in
+            success()
+        }) { (task: URLSessionDataTask?, error: Error) in
+            print(error.localizedDescription)
+        }
+    }
+    
 }
