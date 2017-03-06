@@ -305,6 +305,9 @@
                                                                 <constraint firstAttribute="height" constant="20" id="i7e-lT-eg6"/>
                                                             </constraints>
                                                             <state key="normal" image="retweet-icon"/>
+                                                            <connections>
+                                                                <action selector="retweetBtnOnTap:" destination="Tft-Qe-T9T" eventType="touchUpInside" id="CaY-4e-jNt"/>
+                                                            </connections>
                                                         </button>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="112" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MiY-pY-wP4" userLabel="112">
                                                             <rect key="frame" x="20" y="0.0" width="16" height="20"/>
@@ -324,6 +327,9 @@
                                                                 <constraint firstAttribute="width" constant="20" id="aWf-Vn-3hZ"/>
                                                             </constraints>
                                                             <state key="normal" image="favor-icon"/>
+                                                            <connections>
+                                                                <action selector="favoriteBtnOntap:" destination="Tft-Qe-T9T" eventType="touchUpInside" id="wBp-30-a9u"/>
+                                                            </connections>
                                                         </button>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="20" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CNV-8Q-r3d" userLabel="112">
                                                             <rect key="frame" x="20" y="0.0" width="13" height="20"/>
@@ -824,7 +830,7 @@
         <image name="thumbimage-1" width="400" height="400"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="zaY-9W-i4B"/>
+        <segue reference="snS-vs-B7B"/>
         <segue reference="Hfq-Lv-UOC"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -176,6 +176,12 @@ class TweetsTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
+
+    @IBAction func retweetBtnOnTap(_ sender: Any) {
+    }
+   
+    @IBAction func favoriteBtnOntap(_ sender: Any) {
+    }
     
     func userProfileOnTap(_ gesture: UITapGestureRecognizer){
         if let delegate = delegate{
@@ -185,9 +191,6 @@ class TweetsTableViewCell: UITableViewCell {
             
             delegate.profileImageOnTap(cell: self, user: user!)
             
-            //screenName.remove(at: screenName.startIndex)
-            //delegate.profileImageOnTap(cell: self, user: user!)
-            //delegate.profileImageViewTapped(cell: self, user: user!)
         }
         
     }

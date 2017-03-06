@@ -26,7 +26,33 @@ class TweetDetailViewController: UIViewController, UITableViewDataSource, UITabl
     @IBOutlet weak var favoriteButton: UIButton!
     @IBOutlet weak var messageButton: UIButton!
     
+    weak var delegate: TweetsTableViewCellDelegate?
     var tweet: Tweet?
+    var retweetCount: Int?
+    var favorCount: Int?
+    
+    var isRetweeted: Bool?{
+        didSet{
+            if isRetweeted!{
+                retweetButton.setImage(UIImage(named: "retweet-icon-green"), for: UIControlState.normal)
+            }
+            else{
+                retweetButton.setImage(UIImage(named: "retweet-icon"), for: UIControlState.normal)
+            }
+        }
+    }
+    
+    var isFavorited: Bool?{
+        didSet{
+            if isFavorited!{
+                favoriteButton.setImage(UIImage(named: "favor-icon-red"), for: UIControlState.normal)
+            }
+            else{
+                favoriteButton.setImage(UIImage(named: "favor-icon"), for: UIControlState.normal)
+            }
+        }
+    }
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,17 +85,27 @@ class TweetDetailViewController: UIViewController, UITableViewDataSource, UITabl
             tweetTextLabel.sizeToFit()
         }
         
-        if let date_created = tweet?.timestamp{
+        if let date_created = tweet?.createdDate{
             timestampLabel.text = "\(date_created)"
             timestampLabel.sizeToFit()
         }
         
         if let retweetCount = tweet?.retweetCount{
             retweetCountLabel.text = "\(retweetCount)"
+            self.retweetCount = retweetCount
         }
         
         if let likeCount = tweet?.favoritesCount{
             likeCountLabel.text = "\(likeCount)"
+            self.favorCount = likeCount
+        }
+        
+        if let isRetweeted = tweet?.isRetweeted{
+            self.isRetweeted = isRetweeted
+        }
+        
+        if let isFavorited = tweet?.isFavorited{
+            self.isFavorited = isFavorited
         }
         
         //self.tableView.reloadData()
@@ -92,7 +128,7 @@ class TweetDetailViewController: UIViewController, UITableViewDataSource, UITabl
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
-        return 5
+        return 0
         
     }
     
@@ -107,15 +143,32 @@ class TweetDetailViewController: UIViewController, UITableViewDataSource, UITabl
         return cell
     
     }
+    
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        // Get the new view controller using segue.destinationViewController.
+//        // Pass the selected object to the new view controller.
+//        let iden = segue.identifier
+//        if iden == "replyFromDetailViewSegue" {
+//            let composeVC = segue.destination as! ComposeViewController
+//            composeVC.beginText = screenNameLabel.text
+//        }
+//        else if iden == "DetailViewToProfileView" {
+//            let profileVC = segue.destination as! ProfileTableViewController
+//            profileVC.user = tweet?.user
+//        }
+//    }
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        let identifier = segue.identifier
+        if identifier == "DetailViewToProfileSegue"{
+            let profileVC = segue.destination as! ProfileViewController
+            profileVC.user = tweet?.user
+        }
     }
-    */
+    
 
 }

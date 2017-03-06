@@ -60,22 +60,13 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
     // Cell gets various attributes set automatically based on table (separators) and data source (accessory views, editing controls)
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let cell = tweetTableView.dequeueReusableCell(withIdentifier: "TweetCell", for: indexPath) as! TweetsTableViewCell
-//        
-//        let tweet = tweets![indexPath.row]
-//        cell.tweet = tweet
-//        cell.selectionStyle = UITableViewCellSelectionStyle.none
-//        //cell.delegate = self
-//        cell.delegate = self
-//        return cell
-        
-        
         let cell = tableView.dequeueReusableCell(withIdentifier: "TweetCell", for: indexPath) as! TweetsTableViewCell
         
         let tweet = tweets![indexPath.row]
         cell.tweet = tweet
-        cell.selectionStyle = UITableViewCellSelectionStyle.none
+       
         cell.delegate = self
+        
         return cell
     }
     
@@ -86,20 +77,6 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let identifier = segue.identifier{
             if identifier == "ShowTweetDetail"{
-//                let tweetDetailVC = segue.destination as! TweetDetailViewController
-//                let cell = sender as! TweetsTableViewCell
-//                let selectedIndexPath = tweetTableView.indexPath(for: cell)
-//                let selectedTweet = tweets![selectedIndexPath!.row]
-//                
-//                //tweetDetailVC.detailView
-//                tweetDetailVC.tweet = selectedTweet
-//                
-//                let backItem = UIBarButtonItem()
-//                backItem.title = "Home"
-//                navigationItem.backBarButtonItem = backItem
-//                //tweetTableView.deselectRow(at: selectedIndexPath!, animated: true)
-                
-                
                 let tweetDetailVC = segue.destination as! TweetDetailViewController
                 
                 let cell = sender as! TweetsTableViewCell
@@ -108,9 +85,9 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
                 let selectedTweet = tweets![selectedindexPath!.row]
                 tweetDetailVC.tweet = selectedTweet
                 
-                let backItem = UIBarButtonItem()
-                backItem.title = "Home"
-                navigationItem.backBarButtonItem = backItem
+               // let backItem = UIBarButtonItem()
+                //backItem.title = "Home"
+                //navigationItem.backBarButtonItem = backItem
                 
 
             }
